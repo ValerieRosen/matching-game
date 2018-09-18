@@ -1,8 +1,8 @@
 /*
  * Create a list that holds all of your cards
  */
-const firstCards = document.querySelectorAll('.card');
-
+var gameCards = document.querySelectorAll('.card');
+let openCards = [];
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -12,9 +12,11 @@ const firstCards = document.querySelectorAll('.card');
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
+
     var currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
+        
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
         temporaryValue = array[currentIndex];
@@ -25,12 +27,37 @@ function shuffle(array) {
     return array;
 }
 
-//when cards are clicked they open and show icons
-    firstCards.forEach (function(card) {
+//function that listens for card clicks and opens card and shows icon
+    gameCards.forEach (function(card) {
         card.addEventListener('click', function(e) {
-        card.classList.add('open', 'show');
+
+            if (!card.classList.contains('open') &&
+                !card.classList.contains('show') &&
+                !card.classList.contains('match'));
+
+                    openCards.push(card);
+
+                card.classList.add('open', 'show');
+
+             if (openCards.length === 2) {
+
+                setTimeout(function() {
+
+                    openCards.forEach(function(card) {
+
+                card.classList.remove('open', 'show');
+
+                openCards = [];
+        
+                });       
+            }, 1000);
+        }       
     });
 });
+
+                 
+            
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -42,3 +69,4 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
