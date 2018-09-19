@@ -3,13 +3,13 @@
  * Create a list that holds all of your cards
  */
 
-    let openCards = [];
-    let cardIcons = ['fa fa-diamond', 'fa fa-diamond',
-                    'fa fa-paper-plane-o', 'fa fa-paper-plane-o',
-                    'fa fa-anchor', 'fa fa-anchor',
+    var openCards = [];
+    var cardIcons = ['fa fa-diamond', 'fa fa-diamond',
+                     'fa fa-paper-plane-o', 'fa fa-paper-plane-o',
+                     'fa fa-anchor', 'fa fa-anchor',
                      'fa fa-bolt', 'fa fa-bolt',
                      'fa fa-cube', 'fa fa-cube',
-                     'fa fa-anchor', 'fa fa-anchor',
+                     'fa fa-bomb', 'fa fa-bomb',
                      'fa fa-leaf', 'fa fa-leaf',
                      'fa fa-bicycle', 'fa fa-bicycle'];
    
@@ -24,8 +24,8 @@
 //generate html for cards dynamically
 
     function startGame() {
-         let deck = document.querySelector('.deck');
-         let cardHTML = shuffle(cardIcons).map(function(card) {
+         var deck = document.querySelector('.deck');
+         var cardHTML = shuffle(cardIcons).map(function(card) {
              return cardCode(card);
 
     });
@@ -76,14 +76,16 @@ let gameCards = document.querySelectorAll('.card');
                 openCards[1].classList.add('open');
                 openCards[1].classList.add('show');
 
+                openCards = [];
+
             } else {
                  setTimeout(function() {
                  openCards.forEach(function(card) {
                  card.classList.remove('open', 'show');
 
-            });
+                 });
 
-                  openCards = [];
+                openCards = [];
                               
             }, 1000);
         };
