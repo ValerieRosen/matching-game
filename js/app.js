@@ -12,6 +12,8 @@
                      'fa fa-bomb', 'fa fa-bomb',
                      'fa fa-leaf', 'fa fa-leaf',
                      'fa fa-bicycle', 'fa fa-bicycle'];
+    var moves = 0;
+    var moveCounter = document.querySelector('moves');
    
 
 /*
@@ -29,12 +31,17 @@
              return cardCode(card);
 
     });
+            // moves = 0;
+          //   moveCounter.innerText = moves;
+
              deck.innerHTML = cardHTML.join('');
 }
              startGame(); 
 
     function cardCode(card) {
          return `<li class='card' data-card='${card}'><i class="fa ${card}"></i></li>`;
+
+         
 };
 
 
@@ -89,9 +96,30 @@ let gameCards = document.querySelectorAll('.card');
                               
             }, 1000);
         };
+       // moves += 1;
+       // moveCounter.innerText = moves;
 };
-});
-});                    
+
+//game over
+    function gameOver() {
+        stopTimer();
+        toggleModal();
+
+    }
+    let resetGame = document.querySelectorAll('.restart');
+//restart button 
+    function restartGame() {
+             resetGame.forEach(function(restart) {
+             restart.addEventListener('click', startGame);
+             openCards = [];
+             });
+            } 
+            
+
+    restartGame();
+
+
+                  
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -102,4 +130,4 @@ let gameCards = document.querySelectorAll('.card');
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-              
+    })})           
