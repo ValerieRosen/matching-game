@@ -4,7 +4,7 @@
  */
 
     let openCards = [];
-    const cardIcons = ['fa fa-diamond', 'fa fa-diamond',
+    let cardIcons = ['fa fa-diamond', 'fa fa-diamond',
                      'fa fa-paper-plane-o', 'fa fa-paper-plane-o',
                      'fa fa-anchor', 'fa fa-anchor',
                      'fa fa-bolt', 'fa fa-bolt',
@@ -12,11 +12,12 @@
                      'fa fa-bomb', 'fa fa-bomb',
                      'fa fa-leaf', 'fa fa-leaf',
                      'fa fa-bicycle', 'fa fa-bicycle'];
-    var moves = 0;
-    var moveCounter = document.querySelector('.moves');
-    var time = 0;
+    let moves = 0;
+    let matched = 0;
    
-
+ 
+    
+   
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -25,29 +26,21 @@
  */
 
 //generate html for cards dynamically
-
     function startGame() {
          const deck = document.querySelector('.deck');
-         var cardHTML = shuffle(cardIcons).map(function(card) {
+         const cardHTML = shuffle(cardIcons).map(function(card) {
              return cardCode(card);
-             
-
-    });
-
-            // moves = 0;
-          //   moveCounter.innerText = moves;
-
+         });
              deck.innerHTML = cardHTML.join('');
-}
-
-             startGame(); 
+        };  
+//initialize game  
+startGame();
+    
 
     function cardCode(card) {
-         return `<li class='card' data-card='${card}'><i class="fa ${card}"></i></li>`;
-           
+         return `<li class='card' data-card='${card}'><i class="fa ${card}"></i></li>`;   
 };
-
-
+ 
 // Shuffle function from http://stackoverflow.com/a/2450976
     function shuffle(array) {
 
@@ -64,21 +57,22 @@
         return array;
 }
 
-var gameCards = document.querySelectorAll('.card');
+const gameCards = document.querySelectorAll('.card');
 //function that listens for card clicks and opens card and shows icon
     gameCards.forEach(function(card) {
-       card.addEventListener('click',function(e) {
-        card.classList.add('open', 'show'); 
-
-        startTimer();
-          
+       card.addEventListener('click', function(e) {
+       
+    });
+});
+       
         if (!card.classList.contains('open') &&
             !card.classList.contains('show') &&
             !card.classList.contains('match'));
             openCards.push(card);  
-            
+            card.classList.add('open', 'show'); 
+                 
 //hides cards after 1 second if they do not match
-
+       
         if (openCards.length === 2) {
             if (openCards[0].dataset.card == openCards[1].dataset.card) {
                 openCards[0].classList.add('match');
@@ -88,85 +82,130 @@ var gameCards = document.querySelectorAll('.card');
                 openCards[1].classList.add('match');
                 openCards[1].classList.add('open');
                 openCards[1].classList.add('show');
-
+                
                 openCards = [];
+
+                matched++;
+              
 
             } else {
                  setTimeout(function() {
                  openCards.forEach(function(card) {
                  card.classList.remove('open', 'show');
-
-                 });
+             });
 
                 openCards = [];
-                              
-            }, 1000);
-        };
-        
-       // moves += 1;
-       // moveCounter.innerText = moves;
-};
-
-//game over
- //   function gameOver() {
-   //     stopTimer();
-   //     toggleModal();
-    //}
-
-
-  
-    
-//restart button clears cards but does not allow more cards to be clicked
-        const restartGame = document.querySelector('.restart');
-            restart.addEventListener('click', function() {
-                   deck.innerHTML = ""; 
-            });
-             
-            startGame();
-            
-           });
-            resetGame();
-        });
-            
-
-//start timer
-  
-    var sec = 0;
-    function startTimer( val ) {
-        return val > 9 ? val : "0" +  val;
-    }
-         setInterval( function(){
-            document.getElementById("seconds").innerHTML=startTimer(++sec % 60);
-            document.getElementById("minutes").innerHTML=startTimer(parseInt(sec / 60,10));
-            }, 1000);
-
-        
-        function stopTimer() {
-           clearInterval(startTimer);
+            }, 600);
         }
-                 
-        
-        function resetGame() {
-            openCards = [];
-          //  moves = 0;
-          //  starsContainer.innerHTML = star + star + star;
-            stopTimer();
-         //   isFirstClick = true;
-         //   totalSeconds = 0;
-         //   timerContainer.innerHTML = totalSeconds + "s";
-     }
-     
+                countMoves();
+        }
 
+//Game over
+      function gameOver() {
+        stopTimer();
+        openModal();
+        resetMoves();
+        resetStars();
+}
 
-  
-        
+//Count number of card clicks for moves
+const movesCounter = document.querySelector('.moves');
+    let moves = 0;
+    function countMoves() {
+         moves++;
+         movesCounter.innerHTML = moves;
+         if (moves === 1) {
+             startTimer();
+         }
+         starRating();
+}
+//Reset moves
+    function resetMoves() {
+        movesCounter.innerHTML = 0;
+}
+
+//Stars Rating
+const starsCounter = document.querySelector(".stars");
+    function starRating() {
+        if (moves <= 14) {
+            starsCounter.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+        } else if (moves > 14 && moves <= 18) {
+            starsCounter.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+        } else {
+            starsCounter.innerHTML = '<li><i class="fa fa-star"></i></li>';
+            }
+        }
+    
+//Reset Stars
+function resetStars() {
+    starsCounter.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+}
+//Restart button loads new window
+        let restartButton = document.querySelectorAll('.restart');
+                restartButton.forEach(function(restart) {
+                    restart.addEventListener('click', function(e) {
+                        location.reload();
+                          startGame();
+});    
        
 
-        
-     
+//Start timer
+    const clockTimer = document.querySelector('.timer');
+    let myTimer, totalSeconds = "00";
+                totalMinutes = "00";
 
+    clockTimer.innerHTML = totalMinutes + ":" + totalSeconds;
 
-                  
+    function startTimer() {
+        myTimer = setInterval(function() {
+            totalSeconds++;
+            clockTimer.innerHTML = totalMinutes + ":" + totalSeconds;
+            if (totalSeconds === 60) {
+                totalMinutes++;
+                totalSeconds = 0;
+                totalSeconds++;
+                clockTimer.innerHTML = totalMinutes + ":" + totalSeconds;
+            }
+        //Stop timer
+        if (matched === 8) {
+            stopTimer();
+            gameOver();
+            }
+        }, 1000);
+    } 
+    //Reset timer
+function resetTimer() { 
+    clockTimer.innerHTML = "00:00";
+}
+function stopTimer() {
+    clearInterval(myTimer);
+}
+function gameOver() {
+    modal.classList.remove('hide');
+    document.querySelector('.total-moves').innerHTML = document.querySelector('.moves').innerHTML;
+    document.querySelector('.total-time').innerHTML = document.querySelector('.timer').innerHTML;
+    document.querySelector('.total-stars').innerHTML = document.querySelector('.stars').innerHTML;
+}
+//Modal script
+
+var modal = document.getElementById('gameOverModal');
+//write function that triggers modal opening at end of game
+function openModal() {
+ 
+    let matched = document.getElementsByClassName('.modal');
+    window.openModal
+//get the span element that closes the modal
+       var span = document.getElementsByClassName('close')[0];
+//When x is clicked close modal
+      span.onClick = function() {
+          modal.style.display ="none";
+        }
+//clicking outside fo modal closes modal
+        window.onClick = function(event) {
+            if (event.target == modal) {
+              modal.style.display = "none";
+          }
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -177,4 +216,4 @@ var gameCards = document.querySelectorAll('.card');
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-             
+        }}})   
