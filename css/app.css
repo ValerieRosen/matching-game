@@ -29,8 +29,9 @@ body {
 }
 
 h1 {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Coda', cursive;
     font-weight: 300;
+    text-align: center;
 }
 
 /*
@@ -113,17 +114,18 @@ h1 {
     cursor: pointer;
 }
 
-.score-panel .clock {
+.score-panel .timer {
     font: 'Open Sans', sans-serif;
     text-align: right;
     padding-left: 55px;
+    position: fixed;
 }
 
 .stars {
     color: #d0e03e;
 }
 
-#gameOverModal {
+.modal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -165,6 +167,11 @@ h1 {
     cursor: pointer;
 }
 
-.totalTime .totalMoves .totalStars {
+.total-Time .total-Moves .total-Stars {
     text-align: center;
 }
+
+.moves {
+    width: 10px;
+}
+

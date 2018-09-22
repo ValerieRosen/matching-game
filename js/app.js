@@ -3,8 +3,8 @@
  * Create a list that holds all of your cards
  */
 
-    let openCards = [];
-    let cardIcons = ['fa fa-diamond', 'fa fa-diamond',
+   
+    var cardIcons = ['fa fa-diamond', 'fa fa-diamond',
                      'fa fa-paper-plane-o', 'fa fa-paper-plane-o',
                      'fa fa-anchor', 'fa fa-anchor',
                      'fa fa-bolt', 'fa fa-bolt',
@@ -12,12 +12,8 @@
                      'fa fa-bomb', 'fa fa-bomb',
                      'fa fa-leaf', 'fa fa-leaf',
                      'fa fa-bicycle', 'fa fa-bicycle'];
-    let moves = 0;
     let matched = 0;
-   
- 
-    
-   
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -27,15 +23,19 @@
 
 //generate html for cards dynamically
     function startGame() {
-         const deck = document.querySelector('.deck');
-         const cardHTML = shuffle(cardIcons).map(function(card) {
+         var deck = document.querySelector('.deck');
+         var cardHTML = shuffle(cardIcons).map(function(card) {
              return cardCode(card);
          });
              deck.innerHTML = cardHTML.join('');
         };  
+             
+            
 //initialize game  
 startGame();
-    
+
+var openCards = [];
+             
 
     function cardCode(card) {
          return `<li class='card' data-card='${card}'><i class="fa ${card}"></i></li>`;   
@@ -57,14 +57,11 @@ startGame();
         return array;
 }
 
-const gameCards = document.querySelectorAll('.card');
+var gameCards = document.querySelectorAll('.card');
 //function that listens for card clicks and opens card and shows icon
     gameCards.forEach(function(card) {
        card.addEventListener('click', function(e) {
-       
-    });
-});
-       
+        
         if (!card.classList.contains('open') &&
             !card.classList.contains('show') &&
             !card.classList.contains('match'));
@@ -99,6 +96,8 @@ const gameCards = document.querySelectorAll('.card');
         }
                 countMoves();
         }
+    });
+});
 
 //Game over
       function gameOver() {
@@ -119,6 +118,7 @@ const movesCounter = document.querySelector('.moves');
          }
          starRating();
 }
+
 //Reset moves
     function resetMoves() {
         movesCounter.innerHTML = 0;
@@ -151,7 +151,7 @@ function resetStars() {
 
 //Start timer
     const clockTimer = document.querySelector('.timer');
-    let myTimer, totalSeconds = "00";
+    let myTimer = totalSeconds = "00";
                 totalMinutes = "00";
 
     clockTimer.innerHTML = totalMinutes + ":" + totalSeconds;
@@ -166,14 +166,25 @@ function resetStars() {
                 totalSeconds++;
                 clockTimer.innerHTML = totalMinutes + ":" + totalSeconds;
             }
+            if (totalSeconds < 10) {
+                clockTimer.innerHTML = totalMinutes + ":" + "0" + totalSeconds;
+            } else {
+                clockTimer.innerHTML = totalMinutes + ":" + totalSeconds;
+        
+            }
+          
         //Stop timer
         if (matched === 8) {
             stopTimer();
             gameOver();
             }
-        }, 1000);
-    } 
-    //Reset timer
+        }, 1000); 
+    }
+
+//Call the timer
+startTimer();     
+
+//Reset timer
 function resetTimer() { 
     clockTimer.innerHTML = "00:00";
 }
@@ -186,25 +197,34 @@ function gameOver() {
     document.querySelector('.total-time').innerHTML = document.querySelector('.timer').innerHTML;
     document.querySelector('.total-stars').innerHTML = document.querySelector('.stars').innerHTML;
 }
+
+function closeModal() {
+    modal.classList.add('hide');
+    resetMoves();
+    resetTimer();
+    resetStars();
+    startGame();
+}
+
 //Modal script
 
-var modal = document.getElementById('gameOverModal');
+//let modal = document.getElementByClassName('.modal');
 //write function that triggers modal opening at end of game
-function openModal() {
+//function openModal() {
  
-    let matched = document.getElementsByClassName('.modal');
-    window.openModal
+//    let matched = document.getElementsByClassName('.modal');
+//    window.openModal
 //get the span element that closes the modal
-       var span = document.getElementsByClassName('close')[0];
+//       var span = document.getElementsByClassName('close')[0];
 //When x is clicked close modal
-      span.onClick = function() {
-          modal.style.display ="none";
-        }
+//      span.onClick = function() {
+//          modal.style.display ="none";
+//        }
 //clicking outside fo modal closes modal
-        window.onClick = function(event) {
-            if (event.target == modal) {
-              modal.style.display = "none";
-          }
+//        window.onClick = function(event) {
+//            if (event.target == modal) {
+//              modal.style.display = "none";
+//          }
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -216,4 +236,4 @@ function openModal() {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-        }}})   
+                })
