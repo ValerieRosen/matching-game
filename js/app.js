@@ -13,7 +13,9 @@
                      'fa fa-leaf', 'fa fa-leaf',
                      'fa fa-bicycle', 'fa fa-bicycle'];
     let matched = 0;
+    var openCards = [];
 
+    
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -21,7 +23,7 @@
  *   - add each card's HTML to the page
  */
 
-//generate html for cards dynamically
+//Generate html for cards dynamically
     function startGame() {
          var deck = document.querySelector('.deck');
          var cardHTML = shuffle(cardIcons).map(function(card) {
@@ -31,11 +33,8 @@
         };  
              
             
-//initialize game  
+//Initialize game  
 startGame();
-
-var openCards = [];
-             
 
     function cardCode(card) {
          return `<li class='card' data-card='${card}'><i class="fa ${card}"></i></li>`;   
@@ -58,7 +57,7 @@ var openCards = [];
 }
 
 var gameCards = document.querySelectorAll('.card');
-//function that listens for card clicks and opens card and shows icon
+//Function that listens for card clicks and opens card and shows icon
     gameCards.forEach(function(card) {
        card.addEventListener('click', function(e) {
         
@@ -68,7 +67,7 @@ var gameCards = document.querySelectorAll('.card');
             openCards.push(card);  
             card.classList.add('open', 'show'); 
                  
-//hides cards after 1 second if they do not match
+//Hides cards after 1 second if they do not match
        
         if (openCards.length === 2) {
             if (openCards[0].dataset.card == openCards[1].dataset.card) {
@@ -99,23 +98,15 @@ var gameCards = document.querySelectorAll('.card');
     });
 });
 
-//Game over
-      function gameOver() {
-        stopTimer();
-        openModal();
-        resetMoves();
-        resetStars();
-}
-
 //Count number of card clicks for moves
 const movesCounter = document.querySelector('.moves');
     let moves = 0;
     function countMoves() {
          moves++;
          movesCounter.innerHTML = moves;
-         if (moves === 1) {
-             startTimer();
-         }
+       //  if (moves === 1) {
+        //     startTimer();
+        // }
          starRating();
 }
 
@@ -128,9 +119,9 @@ const movesCounter = document.querySelector('.moves');
 const starsCounter = document.querySelector(".stars");
     function starRating() {
         if (moves <= 14) {
-            starsCounter.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+            starsCounter.innerHTML = '<li><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></li>';
         } else if (moves > 14 && moves <= 18) {
-            starsCounter.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+            starsCounter.innerHTML = '<li><i class="fa fa-star"></i><i class="fa fa-star"></i></li>';
         } else {
             starsCounter.innerHTML = '<li><i class="fa fa-star"></i></li>';
             }
@@ -138,7 +129,7 @@ const starsCounter = document.querySelector(".stars");
     
 //Reset Stars
 function resetStars() {
-    starsCounter.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+    starsCounter.innerHTML = '<li><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></li>';
 }
 //Restart button loads new window
         let restartButton = document.querySelectorAll('.restart');
@@ -177,6 +168,7 @@ function resetStars() {
         if (matched === 8) {
             stopTimer();
             gameOver();
+            
             }
         }, 1000); 
     }
@@ -184,47 +176,53 @@ function resetStars() {
 //Call the timer
 startTimer();     
 
+
+
+function stopTimer() {
+    clearInterval(myTimer);
+}
+
+let modalBox = document.querySelector('.modalBox');
+let modalContent = document.querySelector('.modalContent');
+//Toggle modal
+function openModal() {
+            const modalBox = document.querySelector('.modalBox');
+              modalBox.classList.toggle('hide');
+              modalBox.classList.toggle('close');
+              modalBox.classList.toggle('replay');
+              const modalContent = document.querySelector('.modalContent');
+              modalContent.classList.toggle('hide');
+              }
+          openModal();
+});
+
+
+
+function gameOver() {
+    const modalBox = document.querySelector('.modalBox');
+    const modalContent = document.querySelector('.modalContent');
+    modalBox.classList.remove('hide');
+    document.querySelector('.totalMoves').innerHTML = document.querySelector('.moves').innerHTML;
+    document.querySelector('.totalTime').innerHTML = document.querySelector('.timer').innerHTML;
+    document.querySelector('.totalStars').innerHTML = document.querySelector('.stars').innerHTML;
+    modalContent.classList.remove('close');
+    modalContent.classList.remove('replay');
+    modalContent.classList.remove('hide');
+    
+}
+
 //Reset timer
 function resetTimer() { 
     clockTimer.innerHTML = "00:00";
 }
-function stopTimer() {
-    clearInterval(myTimer);
-}
-function gameOver() {
-    modal.classList.remove('hide');
-    document.querySelector('.total-moves').innerHTML = document.querySelector('.moves').innerHTML;
-    document.querySelector('.total-time').innerHTML = document.querySelector('.timer').innerHTML;
-    document.querySelector('.total-stars').innerHTML = document.querySelector('.stars').innerHTML;
-}
-
+//attach to start new game button
 function closeModal() {
-    modal.classList.add('hide');
-    resetMoves();
-    resetTimer();
-    resetStars();
-    startGame();
-}
+   const modalContent = document.querySelector('.modalContent');
+   modalContent.classList.add('hide');
+   const modalBox = document.querySelector('.modalBox');
+   modalBox.classList.add('hide');
+};
 
-//Modal script
-
-//let modal = document.getElementByClassName('.modal');
-//write function that triggers modal opening at end of game
-//function openModal() {
- 
-//    let matched = document.getElementsByClassName('.modal');
-//    window.openModal
-//get the span element that closes the modal
-//       var span = document.getElementsByClassName('close')[0];
-//When x is clicked close modal
-//      span.onClick = function() {
-//          modal.style.display ="none";
-//        }
-//clicking outside fo modal closes modal
-//        window.onClick = function(event) {
-//            if (event.target == modal) {
-//              modal.style.display = "none";
-//          }
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -236,4 +234,4 @@ function closeModal() {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-                })
+                             
