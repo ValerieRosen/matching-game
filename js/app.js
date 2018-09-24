@@ -1,9 +1,4 @@
-  
-/*
- * Create a list that holds all of your cards
- */
-
-   
+//Global variables   
     var cardIcons = ['fa fa-diamond', 'fa fa-diamond',
                      'fa fa-paper-plane-o', 'fa fa-paper-plane-o',
                      'fa fa-anchor', 'fa fa-anchor',
@@ -15,14 +10,6 @@
     let matched = 0;
     var openCards = [];
 
-    
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
 //Generate html for cards dynamically
     function startGame() {
          var deck = document.querySelector('.deck');
@@ -31,8 +18,7 @@
          });
              deck.innerHTML = cardHTML.join('');
         };  
-             
-            
+                    
 //Initialize game  
 startGame();
 
@@ -56,8 +42,8 @@ startGame();
         return array;
 }
 
-var gameCards = document.querySelectorAll('.card');
 //Function that listens for card clicks and opens card and shows icon
+var gameCards = document.querySelectorAll('.card');
     gameCards.forEach(function(card) {
        card.addEventListener('click', function(e) {
         
@@ -67,8 +53,7 @@ var gameCards = document.querySelectorAll('.card');
             openCards.push(card);  
             card.classList.add('open', 'show'); 
                  
-//Hides cards after 1 second if they do not match
-       
+//Hides cards after 1 second if they do not match    
         if (openCards.length === 2) {
             if (openCards[0].dataset.card == openCards[1].dataset.card) {
                 openCards[0].classList.add('match');
@@ -104,9 +89,9 @@ const movesCounter = document.querySelector('.moves');
     function countMoves() {
          moves++;
          movesCounter.innerHTML = moves;
-       //  if (moves === 1) {
-        //     startTimer();
-        // }
+         if (moves === 1) {
+            startTimer();
+         }
          starRating();
 }
 
@@ -131,12 +116,13 @@ const starsCounter = document.querySelector(".stars");
 function resetStars() {
     starsCounter.innerHTML = '<li><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></li>';
 }
+
 //Restart button loads new window
         let restartButton = document.querySelectorAll('.restart');
                 restartButton.forEach(function(restart) {
-                    restart.addEventListener('click', function(e) {
-                        location.reload();
-                          startGame();
+                restart.addEventListener('click', function(e) {
+                location.reload();
+            startGame();
 });    
        
 
@@ -164,11 +150,10 @@ function resetStars() {
         
             }
           
-        //Stop timer
+//Stop timer when all cards are matched
         if (matched === 8) {
             stopTimer();
             gameOver();
-            
             }
         }, 1000); 
     }
@@ -177,14 +162,14 @@ function resetStars() {
 startTimer();     
 
 
-
+//Stop timer
 function stopTimer() {
     clearInterval(myTimer);
 }
 
+//Toggle modal
 let modalBox = document.querySelector('.modalBox');
 let modalContent = document.querySelector('.modalContent');
-//Toggle modal
 function openModal() {
             const modalBox = document.querySelector('.modalBox');
               modalBox.classList.toggle('hide');
@@ -197,25 +182,25 @@ function openModal() {
 });
 
 
-
+//Game over and toggle modal box
 function gameOver() {
     const modalBox = document.querySelector('.modalBox');
     const modalContent = document.querySelector('.modalContent');
-    modalBox.classList.remove('hide');
-    document.querySelector('.totalMoves').innerHTML = document.querySelector('.moves').innerHTML;
-    document.querySelector('.totalTime').innerHTML = document.querySelector('.timer').innerHTML;
-    document.querySelector('.totalStars').innerHTML = document.querySelector('.stars').innerHTML;
-    modalContent.classList.remove('close');
-    modalContent.classList.remove('replay');
-    modalContent.classList.remove('hide');
-    
+         modalBox.classList.remove('hide');
+         document.querySelector('.totalMoves').innerHTML = document.querySelector('.moves').innerHTML;
+         document.querySelector('.totalTime').innerHTML = document.querySelector('.timer').innerHTML;
+         document.querySelector('.totalStars').innerHTML = document.querySelector('.stars').innerHTML;
+         modalContent.classList.remove('close');
+         modalContent.classList.remove('replay');
+         modalContent.classList.remove('hide');
 }
 
 //Reset timer
 function resetTimer() { 
     clockTimer.innerHTML = "00:00";
 }
-//attach to start new game button
+
+//Attach to replay game button
 function closeModal() {
    const modalContent = document.querySelector('.modalContent');
    modalContent.classList.add('hide');
@@ -225,13 +210,6 @@ function closeModal() {
 
 
 /*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ * Special thanks to Mike Wales, Matt Cranford, Ryan Waite and MDN and W3schools for their time to go over various ways to approach this project. Still learning but I know so much more than when I started! :)
  */
                              

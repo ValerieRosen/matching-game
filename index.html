@@ -21,29 +21,31 @@
         	<ul class="stars">
         		<li><i class="fa fa-star"></i></li>
         		<li><i class="fa fa-star"></i></li>
-                <li><i class="fa fa-star"></i></li>
-                
+                <li><i class="fa fa-star"></i></li> 
             </ul>
             
             <span class="moves">0</span>  Moves 
-                    <span class="timer">00:00</span>
-                     <div class="restart">
-        		     <i class="fa fa-repeat"></i>
+
+            <span class="timer">00:00</span>
+
+            <div class="restart">
+        		<i class="fa fa-repeat"></i>
         	</div>
-          </section>
+        </section>
 
         <ul class="deck"></ul>
     </div>
 
 <!--modal code-->
-<div class="modalBox">
-    <div class = "modalContent">
-        Congratulations! You Won!
+        <div class="modalBox">
+           <div class = "modalContent">
+             Congratulations! You Won!
         <p>
             <div class="info">Total Time:  <span class="totalTime"></span></div>
             <div class="info">Total Moves: <span class="totalMoves"></span></div>
             <div class="info">Total Stars: <span class="stars totalStars"></span></div>
         </p>
+        
         <button class="replay close" value="Replay Game" onClick="location.reload()">Replay Game</button>
         <button class="close" value="Close Game" onClick="closeModal()">Cancel</button>
     </div>
