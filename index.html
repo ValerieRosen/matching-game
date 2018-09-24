@@ -36,12 +36,16 @@
     </div>
 
 <!--modal code-->
-<div class="modal">
-    <div class = "modal-content">
-        <p>Congratulations! You Won!</p>
-        <span class="total-Time">Time:</span>
-        <span class="total-Moves">Moves:</span>
-        <span class="total-Stars">Stars:</span>
+<div class="modalBox">
+    <div class = "modalContent">
+        Congratulations! You Won!
+        <p>
+            <div class="info">Total Time:  <span class="totalTime"></span></div>
+            <div class="info">Total Moves: <span class="totalMoves"></span></div>
+            <div class="info">Total Stars: <span class="stars totalStars"></span></div>
+        </p>
+        <button class="replay close" value="Replay Game" onClick="location.reload()">Replay Game</button>
+        <button class="close" value="Close Game" onClick="closeModal()">Cancel</button>
     </div>
 </div>
 
