@@ -4,6 +4,10 @@
 
 * [Instructions](#instructions)
 * [Contributing](#contributing)
+* [Dependencies](#dependencies)
+* [How To Play](#howtoplay) 
+
+
 
 ## Instructions
 
@@ -21,7 +25,7 @@ For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Dependencies
  
-Libraries used to build game here.
+Backgrounds provided by [Subtle Backgrounds](www.subtlebackgrounds.com). Fonts provided by [Font Awesome] (https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css). CSS animation code provided by  [animate.css](http://daneden.me/animate).
 
 ## How To Play
 
